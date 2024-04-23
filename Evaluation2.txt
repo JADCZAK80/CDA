@@ -1,0 +1,32 @@
+CREATE TABLE client(
+   N_client INT AUTO_INCREMENT,
+   nom VARCHAR(50) ,
+   prenom VARCHAR(50) ,
+   PRIMARY KEY(N_client)
+);
+
+CREATE TABLE commande(
+   N_commande INT AUTO_INCREMENT,
+   date_commande DATE,
+   montant VARCHAR(50) ,
+   N_client INT NOT NULL,
+   PRIMARY KEY(N_commande),
+   FOREIGN KEY(N_client) REFERENCES client(N_client)
+);
+
+CREATE TABLE article(
+   N_article INT AUTO_INCREMENT,
+   designiation_article VARCHAR(50) ,
+   PU_article DECIMAL(15,2)  ,
+   PRIMARY KEY(N_article)
+);
+
+CREATE TABLE se_compose_de(
+   N_commande INT,
+   N_article INT,
+   quantité INT,
+   taux_TVA DECIMAL(5,2)  ,
+   PRIMARY KEY(N_commande, N_article),
+   FOREIGN KEY(N_commande) REFERENCES commande(N_commande),
+   FOREIGN KEY(N_article) REFERENCES article(N_article)
+);
