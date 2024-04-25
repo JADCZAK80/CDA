@@ -49,7 +49,7 @@ CREATE TABLE products (
     pro_color VARCHAR(30),
     pro_picture VARCHAR(40),
     pro_add_date DATE DEFAULT CURRENT_DATE,
-    pro_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    pro_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     pro_publish BOOLEAN NOT NULL DEFAULT 1,
     cat_id INT,
     sup_id INT,
