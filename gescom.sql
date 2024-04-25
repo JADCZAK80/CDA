@@ -24,6 +24,7 @@ create table orders (
     ord_id INT AUTO_INCREMENT NOT NULL,
     ord_order_date DATE DEFAULT CURRENT_DATE,
     ord_ship_date DATE,
+    ord_bill_date DATE,
     ord_reception_date DATE,
     ord_status varchar(25) NOT NULL,
     cus_id INT,
