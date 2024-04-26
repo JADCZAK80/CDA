@@ -52,7 +52,6 @@ CREATE TABLE commande(
    moyen_paiement VARCHAR(20)  NOT NULL,
    adresse_facturation VARCHAR(100)  NOT NULL,
    etat_facture VARCHAR(20)  NOT NULL,
-   Id_livraison INT AUTO_INCREMENT,
    adresse_livraison VARCHAR(100)  NOT NULL,
    etat_livraison VARCHAR(20)  NOT NULL,
    Id_utilisateur INT NOT NULL,
@@ -83,6 +82,16 @@ CREATE TABLE personnel(
    role VARCHAR(50)  NOT NULL,
    code_postal VARCHAR(20)  NOT NULL,
    PRIMARY KEY(matricule_personnel)
+);
+
+CREATE TABLE livre(
+   Id_livraison INT AUTO_INCREMENT,
+   date_livraison DATE,
+   URL_transporteur VARCHAR(50) ,
+   nom_transporteur VARCHAR(50) ,
+   Id_commande INT NOT NULL,
+   PRIMARY KEY(Id_livraison),
+   FOREIGN KEY(Id_commande) REFERENCES commande(Id_commande)
 );
 
 CREATE TABLE fournit(
@@ -118,11 +127,11 @@ CREATE TABLE encadre(
    FOREIGN KEY(matricule_personnel) REFERENCES personnel(matricule_personnel)
 );
 
-CREATE TABLE livre(
-   Id_commande INT,
+CREATE TABLE l_a(
    Id_article INT,
+   Id_livraison INT,
    quantité_livré INT,
-   PRIMARY KEY(Id_commande, Id_article),
-   FOREIGN KEY(Id_commande) REFERENCES commande(Id_commande),
-   FOREIGN KEY(Id_article) REFERENCES article(Id_article)
+   PRIMARY KEY(Id_article, Id_livraison),
+   FOREIGN KEY(Id_article) REFERENCES article(Id_article),
+   FOREIGN KEY(Id_livraison) REFERENCES livre(Id_livraison)
 );
