@@ -45,17 +45,18 @@ CREATE TABLE utilisateur(
 CREATE TABLE commande(
    Id_commande INT AUTO_INCREMENT,
    date_commande DATE NOT NULL,
-   montant_commande_HT DECIMAL(11,2)   NOT NULL,
-   montant_commande_TTC DECIMAL(11,2)   NOT NULL,
-   TVA DECIMAL(5,2)  ,
-   Id_facture INT AUTO_INCREMENT NOT NULL,
-   moyen_paiement VARCHAR(20)  NOT NULL,
-   adresse_facturation VARCHAR(100)  NOT NULL,
-   etat_facture VARCHAR(20)  NOT NULL,
-   adresse_livraison VARCHAR(100)  NOT NULL,
-   etat_livraison VARCHAR(20)  NOT NULL,
+   montant_commande_HT DECIMAL(11,2) NOT NULL,
+   montant_commande_TTC DECIMAL(11,2) NOT NULL,
+   TVA DECIMAL(5,2),
+   Id_facture INT NOT NULL,
+   moyen_paiement VARCHAR(20) NOT NULL,
+   adresse_facturation VARCHAR(100) NOT NULL,
+   etat_facture VARCHAR(20) NOT NULL,
+   adresse_livraison VARCHAR(100) NOT NULL,
+   etat_livraison VARCHAR(20) NOT NULL,
    Id_utilisateur INT NOT NULL,
    PRIMARY KEY(Id_commande),
+   INDEX(Id_facture),
    FOREIGN KEY(Id_utilisateur) REFERENCES utilisateur(Id_utilisateur)
 );
 
