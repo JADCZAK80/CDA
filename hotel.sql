@@ -1,3 +1,4 @@
+-- Active: 1715778719442@@127.0.0.1@3306@hotel
 create database hotel;
 use hotel;
 create table station (

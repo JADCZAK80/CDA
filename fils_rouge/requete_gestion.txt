@@ -1,0 +1,62 @@
+Chiffre d'affaires mois par mois pour une année sélectionnée
+
+SELECT sum(commande.montant_commande_HT)as "CA_HT", commande.montant_commande_TTC as "CA_TTC"
+FROM commande
+WHERE Year(commande.date_commande)=2000
+GROUP BY month(commande.date_commande) 
+ORDER BY month(commande.date_commande) ASC;
+
+Chiffre d'affaires généré pour un fournisseur
+
+SELECT fournisseur.nom, sum(commande.montant_commande_HT) as 'CA_HT', sum(commande.montant_commande_TTC) as 'CA_TTC'
+FROM fournisseur
+JOIN fournit ON fournit.numéro_fournisseur=fournisseur.numéro_fournisseur
+JOIN article ON article.Id_article=fournit.Id_article
+JOIN composer_de ON composer_de.Id_article=article.Id_article
+JOIN commande ON commande.Id_commande=composer_de.Id_commande;
+
+TOP 10 des produits les plus commandés pour une année sélectionnée (référence et nom du produit, quantité commandée, fournisseur)
+
+SELECT article.Id_article, article.libelle_court,sum(composer_de.nombre_d_article), fournisseur.nom
+FROM fournisseur
+JOIN fournit ON fournit.numéro_fournisseur=fournisseur.numéro_fournisseur
+JOIN article ON article.Id_article=fournit.Id_article
+JOIN composer_de ON composer_de.Id_article=article.Id_article
+JOIN commande ON commande.Id_commande=composer_de.Id_commande
+WHERE YEAR(commande.date_commande)=2000
+GROUP BY article.Id_article
+ORDER BY 3 DESC LIMIT 10;
+
+TOP 10 des produits les plus rémunérateurs pour une année sélectionnée (référence et nom du produit, marge, fournisseur)
+
+SELECT article.Id_article, article.libelle_court,(article.prix_HT*composer_de.nombre_d_article) as marge, fournisseur.nom
+FROM fournisseur
+JOIN fournit ON fournit.numéro_fournisseur=fournisseur.numéro_fournisseur
+JOIN article ON article.Id_article=fournit.Id_article
+JOIN composer_de ON composer_de.Id_article=article.Id_article
+JOIN commande ON commande.Id_commande=composer_de.Id_commande
+WHERE YEAR(commande.date_commande)=2000
+GROUP BY article.Id_article
+ORDER BY 3 DESC LIMIT 10;
+
+Top 10 des clients en nombre de commandes ou chiffre d'affaires
+
+SELECT utilisateur.nom, utilisateur.prénom, (article.prix_HT*composer_de.nombre_d_article) as CA, fournisseur.nom
+FROM fournisseur
+JOIN fournit ON fournit.numéro_fournisseur=fournisseur.numéro_fournisseur
+JOIN article ON article.Id_article=fournit.Id_article
+JOIN composer_de ON composer_de.Id_article=article.Id_article
+JOIN commande ON commande.Id_commande=composer_de.Id_commande
+JOIN utilisateur ON utilisateur.Id_utilisateur=commande.Id_utilisateur
+GROUP BY utilisateur.Id_utilisateur
+ORDER BY 3 DESC LIMIT 10;
+
+Répartition du chiffre d'affaires par type de client
+
+Nombre de commandes en cours de livraison.
+
+SELECT COUNT(*) FROM `commande` WHERE commande.etat_livraison='en cours de livraison';
+
+
+Insertion 4669.494195913
+Requête 72.530933469
