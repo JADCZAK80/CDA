@@ -1,0 +1,6 @@
+@startuml
+personel->systeme: ouvre l'application
+systeme->personel: demande une connection
+personel->
+
+@enduml
