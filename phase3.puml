@@ -1,6 +1,15 @@
 @startuml
 personel->systeme: ouvre l'application
 systeme->personel: demande une connection
-personel->
+personel->systeme: rentre ses information de connexion
+systeme->personel: * le système informe si erreur de saisie
+personel->systeme: * le personnel modifie la ou les erreurs de saisie
+systeme->personel: le système demande ce que le personnel souhaite faire
+personel->systeme: le personnel clique sur faire un empreint
+systeme->personel: le système demande les information de reservation
+personel->systeme: le personnel valide les information de reservation
+systeme->personel: * le syteme affiche un message si l'abonnée n'a pas cotisser ou a plus de 5 empreint
+personel->systeme: * le personnel avertit l'abonnée du problème rencontrer
+systeme->personel: le système avertit le personnel de la confirmation de la reservation
 
 @enduml

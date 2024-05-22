@@ -1,0 +1,33 @@
+@startuml
+(*) --> "initialization"
+--> "connexion"
+
+If "erreur de saissie" then
+-->"correction des information"
+-->"connecter"
+    else
+-->"connecter"
+endif
+
+-->"bouton empreint cliquer"
+-->"renseigne les info de reservation"
+
+If "verifie" then
+-->[erreur]"correction"
+
+    if "probleme" then
+    -->[cotisation non payer]"avertir abonnée"
+    
+    else 
+    -->[max empreint]"avertir abonnée"
+    -->"arret reservation"
+    endif
+    -->(*)
+    else 
+-->[pas de probleme]"reservation effectuer"
+endif
+
+-->(*)
+
+
+@enduml
