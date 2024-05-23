@@ -1,0 +1,75 @@
+@startuml
+
+class personnel{
+    -id : int
+    -nomPersonne : varchar
+    -fonctionEmploye : varchar
+    -password : varchar
+    +getNom()
+    +getPassword()
+    +setPassword()
+    +setNom()
+}
+
+class abonnée{
+    -id :int
+    -nom : varchar
+    -prénom : varchar
+    -adresse : varchar
+    -cotisation : booleen
+    -datePayementCotissation : date
+    -peutEmpreinter : booleen
+    +getNom()
+    +getPrenom()
+    +getAdresse()
+    +getcotisation()
+    +getEmpreint()
+    +getDateCot()
+    +setNom()
+    +setPrenom()
+    +setAdresse()
+    +setcotisation()
+    +setEmpreint()
+    +setDateCot()
+    +changerAdresse()
+    +cotissationImpayer()
+}
+
+class document{
+    -id : int
+    -titre : varchar
+    -auteur : varchar
+    -editeur : varchar
+    -anneeEdition : date
+    -stock : int
+    +getId()
+    +getTitre()
+    +getAuteur()
+    +getEditeur()
+    +getAnnee()
+    +getStock()    
+    +setId()
+    +setTitre()
+    +setAuteur()
+    +setEditeur()
+    +setAnnee()
+    +setStock()
+    +empreinter()
+    +retour()
+}
+
+class empreint{
+    -idAbonnee : id
+    -idDocument : id
+    -dateEmpreint : date
+    +getIdAbonnee()
+    +setIdAbonnee()
+    +getIdDocument()
+    +setIdDocument()
+    +relance()
+}
+
+abonnée "1" *-left-* "0" empreint 
+empreint "0" *--*  "1" document
+document "*" *-left-* "*" personnel
+@enduml
