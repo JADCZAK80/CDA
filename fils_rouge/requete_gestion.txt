@@ -53,6 +53,15 @@ ORDER BY 3 DESC LIMIT 10;
 
 Répartition du chiffre d'affaires par type de client
 
+SELECT utilisateur.type, (article.prix_HT*composer_de.nombre_d_article) as CA
+FROM fournisseur
+JOIN fournit ON fournit.numéro_fournisseur=fournisseur.numéro_fournisseur
+JOIN article ON article.Id_article=fournit.Id_article
+JOIN composer_de ON composer_de.Id_article=article.Id_article
+JOIN commande ON commande.Id_commande=composer_de.Id_commande
+JOIN utilisateur ON utilisateur.Id_utilisateur=commande.Id_utilisateur
+GROUP BY utilisateur.type;
+
 Nombre de commandes en cours de livraison.
 
 SELECT COUNT(*) FROM `commande` WHERE commande.etat_livraison='en cours de livraison';
