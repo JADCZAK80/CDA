@@ -1,0 +1,78 @@
+@startuml
+title Diagramme séquence <font color=green>Green village</font> Partie 1
+
+autonumber
+Client -[#BlueViolet]> Système : Se rend sur Green village
+Système -[#Green]> Client : Affiche l'accueil
+alt Pas inscrit
+    Client -[#Blue]> Système : Clique sur nouvelle utilisateur
+    Système -[#GreenYellow]> Client : Ouvre un formulaire d'inscription
+    Client -[#Blue]> Système : Rempli le formulaire
+    group Erreur
+        Système -[#Red]> Client : Message d'erreur sur les champs concerner
+        Client -[#Violet]> Système : Corrige les erreur
+    end
+    Système -[#GreenYellow]> Client : Valide inscription et redirige ver l'accueil
+end
+Client -[#BlueViolet]> Système : Clique sur l'îcone de connexion
+Système -[#Green]> Client : Affiche un formulaire de connexion
+
+
+alt Mauvais mot de passe ou oublier
+    Client -[#Blue]> Système : Rentre son identifiant et son mot de passe
+    Système -[#GreenYellow]> Client : Envoi une erreur
+    group Identifiant oublié
+        Client -[#Violet]> Système : Clique sur identifiant oublié?
+        Système -[#Red]> Client : Envoie un SMS avec l'identifiant
+    else Mot de passe oublié
+        Client -[#Violet]> Système : Clique sur mot de passe oublié?
+        Système -[#Red]> Client : Envoie un mail avec le mot de passe
+    end
+    Client -[#Blue]> Système : Rentre son identifiant et son mot de passe
+    Système -[#GreenYellow]> Client : Connecte l'utilisateur et redirige vers l'accueil
+end
+
+Client -[#BlueViolet]> Système : Rentre son identifiant et son mot de passe
+Système -[#Green]> Client : Connecte l'utilisateur et redirige vers l'accueil
+Client -[#BlueViolet]> Système : Clique sur une catégorie (*ou recherche l'article)
+Système -[#Green]> Client : Affiche les Sous-catégories
+Client -[#BlueViolet]> Système : Clique sur une des Sous-catégories
+Système -[#Green]> Client : Affiche les produit
+Client -[#BlueViolet]> Système : clique sur un produit
+Système -[#Green]> Client : (*)Affiche les détail du produit
+newpage Diagramme séquence <font color=green>Green village</font> partie 2
+
+Client -[#BlueViolet]> Système : Rentre la quantité et clique sur ajouter
+
+alt Article non trouver
+    Système -[#GreenYellow]> Client : Article non trouver
+    Client -[#Blue]> Système : Effectue une nouvelle recherche ou s'arrête là
+else Rupture de Stock
+    Système -[#GreenYellow]> Client : Article non disponible
+    Client -[#Blue]> Système : Effectue une nouvelle recherche ou s'arrête là
+end
+
+Système -[#Green]> Client : Ajoute l'article, redirige vers l'accueil et affiche un message
+Client -> Client : ajoute plusieurs article si il le souhaite
+Client -[#BlueViolet]> Système : Clique sur le panier
+Système -[#Green]> Client : Affiche le contenue du panier
+Client -[#BlueViolet]> Système : Ajuste les quantités et clique sur commander
+Système -[#Green]> Client : Ouvre une page avec un formulaire de commande
+Client -[#BlueViolet]> Système : Rentre ses informations et valide
+
+alt Erreur formulaire commande
+    Système -[#GreenYellow]> Client : Erreur au champs concerner
+    Client -[#Blue]> Système : Corrige les champs et valide ou s'arrête là
+end
+Système -[#Green]> Client : Redirige le client sur le formulaire de paiement
+Client -[#BlueViolet]> Système : Rentre ses information bancaire
+
+alt Erreur lors du paiement
+    Système -[#GreenYellow]> Client : Envoie une erreur lors du paiement
+    Client -[#Blue]> Système : Corrige l'erreur ou s'arrête là
+end
+
+Système -[#Green]> Client : Redirige le client vers l'accueil, affiche un message de succès et un mail
+
+
+@enduml
