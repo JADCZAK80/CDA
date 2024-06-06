@@ -1,0 +1,139 @@
+@startuml
+
+class rubrique {
+    -id_rubrique : int
+    -libelle_court : varchar
+    -libelle : varchar
+    -image : varchar
+    +ajout_rubrique()
+    +modifier_rubrique()
+    +suppression_rubrique()
+}
+
+class sous_rubrique {
+    -id_sous_rubrique : int
+    -libelle_court : varchar
+    -libelle : varchar
+    -image : varchar
+    -id_rubrique : int
+    +ajout_sous_rubrique()
+    +modifier_sous_rubrique()
+    +suppression_sous_rubrique()
+}
+
+class article {
+    -id_article : int
+    -libelle_court : varchar
+    -libelle : varchar
+    -prix_HT : décimal
+    -id_sous_rubrique : int
+    +ajout_article()
+    +modifier_article()
+    +suppression_article()
+}
+
+class fournisseur {
+    -numéro_fournisseur : varchar
+    -nom : varchar
+    -adresse : varchar
+    -pays : varchar
+    -ville : varchar
+    -téléphone : varchar
+    -code_postal : varchar
+}
+
+class fournit {
+    -numéro_fournisseur : varchar
+    -id_article : int
+}
+
+class personnel {
+    -matricule_personnel : varchar
+    -nom : varchar
+    -prenom : varchar
+    -adresse : varchar
+    -téléphone : varchar
+    -mail : varchar
+    -mot_de_passe : varchar
+    -service : varchar
+    -role : varchar
+    -code_postal : varchar
+}
+
+class gere {
+    -id_article : int
+    -matricule_personnel : varchar
+}
+
+class utilisateur {
+    -id_utilisateur : int
+    -nom : varchar
+    -prénom : varchar
+    -adresse : varchar
+    -code_postal : varchar
+    -pays : varchar
+    -ville : varchar
+    -téléphone : varchar
+    -mail : varchar
+    -mot_de_passe : varchar
+    -reduction : decimal
+    -type : varchar
+}
+
+class encadre {
+    -id_utilisateur : int
+    -matricule_personnel : varchar
+}
+
+class commande {
+    -id_commande : int
+    -date_commande : date
+    -montant_commande_HT : decimal
+    -montant_commande_TTC : decimal
+    -TVA : decimal
+    -id_facture : int
+    -date_facturation : date
+    -moyen_paiement : varchar
+    -adresse_facturation : varchar
+    -etat_facture : varchar
+    -adresse_livraison : varchar
+    -etat_livaison : varchar
+    -id_utilisateur : int
+}
+
+class composer_de {
+    -id_commande : int
+    -id_article : int
+    -nombre_d_article : int
+}
+
+class livre {
+    -id_livraison : int
+    -date_livraison : date
+    -URL_transporteur : varchar
+    -nom_transporteur : varchar
+    -id_commande : int
+}
+
+class l_a {
+    -id_article : int
+    -id_livraison : int
+    -quantité_livré : int
+}
+
+rubrique "0..1" *--* "*" sous_rubrique
+sous_rubrique "0..1" *--* "*" article
+article "1" *-left-* "*" fournit
+fournit "*" *-left-* "1" fournisseur
+article "1" *-right-* "*" gere
+gere "*" *-right-* "1" personnel
+personnel "1" *--* "*" encadre
+encadre "*" *--* "1" utilisateur
+utilisateur "0..1" *--* "*" commande
+commande "0..1" *--* "*" livre
+composer_de "*" *--* "1" commande
+article "1" *--* "*" composer_de
+livre "1" *-left-* "*" l_a
+l_a "*" *--* "1" article
+
+@enduml
