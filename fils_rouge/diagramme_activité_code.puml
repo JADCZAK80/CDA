@@ -1,0 +1,68 @@
+@startuml
+start
+: Site Green village;
+partition #white/yellow "Partie Inscription"{
+if (non inscrit) then (inscription)
+
+while(formulaire d'inscription)
+#red:erreur;
+:correction;
+endwhile
+
+#palegreen:Inscrit;
+
+else (Déja inscrit)
+endif
+}
+
+partition #white/blue "Partie connexion"{
+while(connexion)
+if(erreur)
+:Correction;
+else (Mot de passe oublié ou identifiant)
+:demande mot de passe
+         ou identifiant;
+endif
+endwhile
+
+#palegreen:Connecter;
+}
+
+partition #white/pink "Partie panier"{
+while(preparation panier)
+while(recherche article)
+
+if (pas trouvé) then (arret)
+end
+else (nouvelle recherche)
+endif
+endwhile
+#palegreen:artilcle touvé;
+#palegreen:ajout panier;
+endwhile
+:panier finit;
+:ajustement panier;
+}
+
+partition #white/gold "Partie commande"{
+if (commande) then (oui)
+:formulaire;
+else(non)
+end
+endif
+while (completer formulaire)
+#red:erreur;
+:correction;
+endwhile
+#palegreen:formulaire validé;
+:paiement;
+while (tentative paiement)
+#red:erreur;
+:correction;
+endwhile
+#palegreen:paiement validé;
+:commande confirmé;
+:mail envoyé;
+}
+stop
+@enduml
